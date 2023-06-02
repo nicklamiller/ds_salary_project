@@ -1,1 +1,1 @@
-"""Put project description here."""
+"""Modules for data science project."""
