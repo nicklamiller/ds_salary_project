@@ -20,6 +20,7 @@ def main():
     driver.get(url)
 
     try:
+        time.sleep(10)
         current_job_number = iterate_through_jobs(driver, number_of_jobs)
 
     finally:
@@ -38,7 +39,7 @@ def iterate_through_jobs(driver, number_of_jobs: int):
                 By.TAG_NAME, 'li',
             )
             for job_element in all_job_elements:
-                job_element.click()
+                driver.execute_script('arguments[0].click();', job_element)
                 current_job_number += 1
             _go_next_page(driver)
             time.sleep(sleep_seconds)
@@ -55,10 +56,11 @@ def _close_signup_popup(driver):
 
 
 def _go_next_page(driver):
-    driver.find_element(
+    next_page_button = driver.find_element(
         By.CSS_SELECTOR,
         '.nextButton',
-    ).click()
+    )
+    driver.execute_script('arguments[0].click();', next_page_button)
 
 
 if __name__ == '__main__':
